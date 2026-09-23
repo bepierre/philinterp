@@ -1,0 +1,54 @@
+  <article class="work" id="understanding">
+    <div class="text">
+      <h3>Mechanistic Indicators of Understanding in Large Language Models</h3>
+      <div class="auth"><a href="{people}#pierre-beckmann">Pierre Beckmann</a> and <a href="{people}#matthieu-queloz">Matthieu Queloz</a>, Philosophical Studies, 2026</div>
+      <p class="body">Language models are often said to imitate patterns without understanding anything. The paper argues that mechanistic findings make this picture hard to hold, once they are read through a theory of what understanding is. It proposes three tiers, each tied to a level of the model's organisation: conceptual understanding, when a model forms features as directions in latent space; state-of-the-world understanding, when it learns contingent connections between features and tracks how the world changes; and principled understanding, when it stops relying on memorised facts and finds a compact circuit that connects them.</p>
+      <div class="actions"><a class="btn primary" href="https://link.springer.com/article/10.1007/s11098-026-02513-1">Read the paper</a></div>
+    </div>
+    <figure>
+      <svg id="tiers" class="plate" viewBox="0 0 900 900" aria-label="Three tiers of understanding: a feature direction, connected features tracking a change, and a compact circuit. Hover a tier."></svg>
+      <figcaption id="tiersCap">Three tiers, three levels of organisation: a feature is a direction; state of the world is features joined by facts; a principle is a circuit in place of a list.</figcaption>
+    </figure>
+  </article>
+
+  <article class="work" id="taxigpt">
+    <div class="text">
+      <h3>World Modeling in Transformers</h3>
+      <div class="auth"><a href="{people}#pierre-beckmann">Pierre Beckmann</a>, <a href="{people}#matthieu-queloz">Matthieu Queloz</a> and André Freitas, 2026</div>
+      <p class="body">TaxiGPT is a transformer trained on random walks through Manhattan. Its wrong turns had been read as proof that it holds no coherent map. Looking inside tells a different story: the model represents intersections and the streets between them, tracks its own position over a rolling window of recent moves, and steers by a goal compass, a circular representation of the bearing to its destination. Its failures come from interference between intersection features stored in superposition, not from the absence of a map.</p>
+      <p class="body">The interactive explorer lets you play a ride and watch the model's position code and goal compass update turn by turn.</p>
+      <div class="actions"><a class="btn primary" href="https://bepierre.github.io/world-modeling/">Open the explorer</a><a class="btn" href="https://arxiv.org/abs/2609.21748">Read the paper</a></div>
+    </div>
+    <figure>
+      <canvas id="taxi" class="plate" width="900" height="900" aria-label="A taxi on a street grid and a compass showing the decoded bearing to a fixed goal. Move the taxi with the pointer."></canvas>
+      <figcaption>The goal compass: at layer 16 the model keeps the bearing from where it is to its goal as a direction in a two-dimensional plane. Steering the compass steers the taxi.</figcaption>
+    </figure>
+  </article>
+
+  <article class="work" id="mind">
+    <div class="text">
+      <h3>Where is the Mind? Persona Vectors and LLM Individuation</h3>
+      <div class="auth"><a href="{people}#pierre-beckmann">Pierre Beckmann</a> and Patrick Butlin, 2026</div>
+      <p class="body">If a language model has a mind, which thing is it: the weights, a conversation, a character the model plays? The individuation problem asks which entities associated with a model should count as minds. The paper approaches it with mechanistic evidence, in particular recent work on persona vectors, persona space, and emergent misalignment, and narrows the field to three candidates: the virtual instance, sustained by attention streams that carry quasi-psychological connections across token-time; the instance-persona; and the model-persona.</p>
+      <div class="actions"><a class="btn primary" href="https://arxiv.org/abs/2604.17031">Read the paper</a></div>
+    </div>
+    <figure>
+      <canvas id="mindfig" class="plate" width="900" height="900" aria-label="Persona space: two regions of points in three dimensions. Hover a region to see which persona it is."></canvas>
+      <figcaption id="mindCap">Persona space. Each point is the model's internal state under some prompt or conversation; the states gather into regions, and a persona vector runs between them.</figcaption>
+    </figure>
+  </article>
+
+  <article class="work" id="recall">
+    <div class="text">
+      <h3>Deep Learning Models Also Recall Features</h3>
+      <div class="auth"><a href="{people}#pierre-beckmann">Pierre Beckmann</a>, 2026</div>
+      <p class="body">Mechanistic interpretability has studied how language models recall facts stored in their weights. The paper argues that factual recall is an instance of something broader, feature recall: a linear projection can be read as retrieving stored information, scaled by how strongly an input feature is active. When Michael and Jordan are both present, an MLP combines them into a Michael Jordan feature; that single feature then recalls what the weights hold about him, plays basketball, Chicago Bulls, and adds it to the residual stream for the next prediction.</p>
+      <p class="body">The paper defines feature recall, shows it applies across architectures, contrasts it with the established paradigm of feature combination, and asks how cases of it could be identified mechanistically.</p>
+      <div class="actions"><a class="btn primary" href="https://arxiv.org/abs/2608.20970">Read the paper</a></div>
+    </div>
+    <figure>
+      <svg id="recallfig" class="plate" viewBox="0 0 900 900" aria-label="Two input features, Michael and Jordan, combine into a Michael Jordan feature which recalls stored facts. The inputs are switches."></svg>
+      <figcaption>Combination, then recall. Michael and Jordan together activate a Michael Jordan feature; that one feature retrieves the facts stored with it and writes them into the residual stream. The two inputs are switches.</figcaption>
+    </figure>
+  </article>
+
