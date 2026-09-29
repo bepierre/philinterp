@@ -234,6 +234,126 @@
     draw();
   })();
 
+
+  /* ---------- research filters ---------- */
+  var filt=document.querySelector('.filters');
+  if (filt) (function(){
+    var chips=filt.querySelectorAll('.chip'), works=document.querySelectorAll('article.work');
+    var active=new Set(), by=null, NAMES={'pierre-beckmann':'Pierre Beckmann','matthieu-queloz':'Matthieu Queloz','iwan-williams':'Iwan Williams','eliot-du-sordet':'Eliot du Sordet'};
+    var byline=document.getElementById('byline');
+    function readHash(){ var m=/by=([a-z-]+)/.exec((location.hash||'')+' '+(location.search||'')); by = m && NAMES[m[1]] ? m[1] : null; if (byline){ byline.hidden=!by; byline.innerHTML = by ? 'Papers by '+NAMES[by]+'<a href="#">Show all</a>' : ''; } }
+    window.addEventListener('hashchange', function(){ readHash(); apply(); });
+    readHash();
+    function apply(){
+      chips.forEach(function(c){ var t=c.dataset.tag; var on = t==='all' ? active.size===0 : active.has(t); c.setAttribute('aria-pressed', on?'true':'false'); });
+      works.forEach(function(a){ var tags=(a.dataset.tags||'').split(' '), authors=(a.dataset.authors||'').split(' '); var show = (active.size===0 || tags.some(function(t){ return active.has(t); })) && (!by || authors.indexOf(by)>=0); a.hidden=!show; });
+    }
+    chips.forEach(function(c){ c.addEventListener('click', function(){ var t=c.dataset.tag; if (t==='all') active.clear(); else if (active.has(t)) active.delete(t); else active.add(t); apply(); }); });
+    apply();
+  })();
+
+  /* ---------- planning a rhyme: the rhyme is chosen first, the line forms toward it ---------- */
+  var rh=document.getElementById('rhymefig');
+  if (rh) (function(){
+    var hot=T['--on-plate'], sky=T['--sky'], plate=T['--plate'], line=T['--plate-line'], FS=19, CW=11.4;
+    var g=el('g',{},rh), dyn=el('g',{},rh);
+    function txt(parent,x,y,str,o){ o=o||{}; var t=el('text',{x:x,y:y,'text-anchor':o.a||'start',fill:hot,'font-family':MONO,'font-size':FS},parent); t.textContent=str; return t; }
+    var L1='He saw a carrot and had to grab it,', X0=90, Y1=270, YP=450, Y2=650;
+    txt(g,X0,Y1,L1);
+    var PLANS={rabbit:['his','hunger','was','like','a','starving','rabbit'], habit:['his','hunger','was','a','powerful','habit']};
+    var chosen='rabbit', timer=null;
+    // the plan: two candidate rhymes, one chosen; the node sits at the line break
+    var PX=X0+L1.length*CW+8; var node=el('circle',{cx:PX,cy:Y1-6,r:8,fill:hot},g);
+    txt(g,450,Y2+110,'an intention-like representation of the rhyme,',{a:'middle'});
+    txt(g,450,Y2+140,'held before the line is written',{a:'middle'});
+    var CH=[{k:'rabbit',x:330},{k:'habit',x:560}], pills={};
+    CH.forEach(function(c){
+      var grp=el('g',{},g); grp.style.cursor='pointer';
+      var wpx=c.k.length*CW+40;
+      var r=el('rect',{x:c.x-wpx/2,y:YP-22,width:wpx,height:44,rx:22,fill:hot,stroke:sky,'stroke-width':2},grp);
+      var t=txt(grp,c.x,YP+7,c.k,{a:'middle'});
+      var link=el('line',{x1:PX,y1:Y1+8,x2:c.x,y2:YP-24,stroke:sky,'stroke-width':2},g); g.insertBefore(link,grp);
+      function pick(){ if (chosen!==c.k){ chosen=c.k; write(true); } }
+      grp.addEventListener('mouseenter',pick); grp.addEventListener('click',pick);
+      pills[c.k]={r:r,t:t,link:link};
+    });
+    function write(animate){
+      CH.forEach(function(c){ var on=c.k===chosen; pills[c.k].r.setAttribute('fill',on?hot:'rgba(255,255,255,.06)'); pills[c.k].t.setAttribute('fill',on?plate:hot); pills[c.k].link.setAttribute('stroke',on?hot:sky); pills[c.k].link.style.opacity=on?1:.3; });
+      while (dyn.firstChild) dyn.removeChild(dyn.firstChild);
+      if (timer) clearTimeout(timer);
+      var words=PLANS[chosen], x=X0, items=[], other=PLANS[chosen==='rabbit'?'habit':'rabbit'], shared=0; while (shared<words.length && words[shared]===other[shared]) shared++;
+      words.forEach(function(wd,i){ var last=i===words.length-1, fixed=i<shared;
+        var t=txt(dyn,x,Y2,wd); if (fixed) t.setAttribute('fill',sky); var ln=el('line',{x1:CH[chosen==='rabbit'?0:1].x,y1:YP+24,x2:x+wd.length*CW/2,y2:Y2-24,stroke:last?hot:sky,'stroke-width':last?2.2:1.2},dyn); ln.style.opacity=last?.9:.35;
+        if (last){ el('rect',{x:x-6,y:Y2-20,width:wd.length*CW+12,height:28,rx:4,fill:'none',stroke:hot,'stroke-width':1.5},dyn); }
+        items.push([t,ln].concat(last?[dyn.lastChild]:[])); x+=(wd.length+1)*CW; });
+      if (!animate || reduce){ return; }
+      items.forEach(function(it,i){ if (i>=shared) it.forEach(function(e){ e.style.opacity=0; }); });
+      var k=shared; (function step(){ if (k>=items.length) return; items[k].forEach(function(e,idx){ e.style.transition='opacity .18s'; e.style.opacity = (idx===1 && k<items.length-1) ? .35 : (idx===1?.9:1); }); k++; timer=setTimeout(step,170); })();
+    }
+    write(false);
+  })();
+
+
+  /* ---------- the world and the model: one structure, twice ---------- */
+  var wc=document.getElementById('worldfig');
+  if (wc) (function(){
+    var wx=wc.getContext('2d'), W=wc.width, H=wc.height;
+    var hot=T['--on-plate'], sky=T['--sky'], plate=T['--plate'], line=T['--plate-line'];
+    // a small constellation, and a rotated, scaled copy of it
+    var base=[[0,0],[1.4,0.3],[2.1,-0.9],[0.6,-1.5],[-0.9,-1.1],[-1.6,0.4],[-0.7,1.4],[0.9,1.6],[2.4,0.8],[-2.2,-0.6],[1.1,-2.3],[-0.2,2.5]];
+    var edges=[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,1],[4,9],[3,10],[7,11],[0,6],[0,3]];
+    function place(cx,cy,sc,rot){ return base.map(function(p){ var x=p[0]*Math.cos(rot)-p[1]*Math.sin(rot), y=p[0]*Math.sin(rot)+p[1]*Math.cos(rot); return {x:cx+x*sc, y:cy+y*sc}; }); }
+    var world=place(250,450,62,0), model=place(650,450,52,0.55), hover=false;
+    wc.addEventListener('mouseenter',function(){ hover=true; draw(); }); wc.addEventListener('mouseleave',function(){ hover=false; draw(); });
+    function draw(){
+      wx.fillStyle=plate; wx.fillRect(0,0,W,H);
+      // a faint divide
+      wx.strokeStyle=line; wx.lineWidth=2; wx.globalAlpha=.5; wx.beginPath(); wx.moveTo(450,120); wx.lineTo(450,780); wx.stroke(); wx.globalAlpha=1;
+      // correspondences
+      if (hover){ wx.strokeStyle=hot; wx.lineWidth=1.6; wx.globalAlpha=.55; wx.setLineDash([6,8]); world.forEach(function(p,i){ wx.beginPath(); wx.moveTo(p.x,p.y); wx.lineTo(model[i].x,model[i].y); wx.stroke(); }); wx.setLineDash([]); wx.globalAlpha=1; }
+      [world,model].forEach(function(pts,k){
+        wx.strokeStyle=sky; wx.lineWidth=2.2; wx.globalAlpha=.7;
+        edges.forEach(function(e){ wx.beginPath(); wx.moveTo(pts[e[0]].x,pts[e[0]].y); wx.lineTo(pts[e[1]].x,pts[e[1]].y); wx.stroke(); });
+        wx.globalAlpha=1; wx.fillStyle=hot; pts.forEach(function(p){ wx.beginPath(); wx.arc(p.x,p.y,7,0,7); wx.fill(); });
+      });
+      wx.fillStyle=hot; wx.font='26px "IBM Plex Mono", monospace'; wx.textAlign='center';
+      wx.fillText('the world',250,810); wx.fillText('the model',650,810);
+    }
+    draw();
+  })();
+
+
+  /* ---------- three open problems, and the philosophy that speaks to each ---------- */
+  var nf=document.getElementById('needsfig');
+  if (nf) (function(){
+    var hot=T['--on-plate'], sky=T['--sky'], line=T['--plate-line'], FS=19;
+    var g=el('g',{},nf);
+    function txt(x,y,str,o){ o=o||{}; var t=el('text',{x:x,y:y,'text-anchor':o.a||'middle',fill:o.c||hot,'font-family':MONO,'font-size':FS},g); t.textContent=str; return t; }
+    var P=[
+      {q:['how to decompose','a network'], a:['philosophy of','science'], cap:'Decomposition: which parts of a network are the right units of explanation. The philosophy of science has an account of mechanistic explanation, and of why there can be several good levels of analysis.'},
+      {q:['what a feature','represents'], a:['philosophy of','representation'], cap:'Features: whether a feature stands for something in the world or in the model, and how to tell. The philosophy of representation separates a vehicle from its content and disciplines how content is ascribed.'},
+      {q:['how to detect','deception'], a:['philosophy of mind','and ethics'], cap:'Deception: finding it in a model’s internals needs settled notions of lying and belief. Philosophy of mind and ethics supply them, and say which deceptive mechanisms call for intervention.'}
+    ];
+    var xs=[180,450,720], QY=300, AY=600, rows=[];
+    el('line',{x1:100,y1:450,x2:800,y2:450,stroke:line,'stroke-width':1.2},g);
+    txt(100,160,'mechanistic interpretability',{a:'start'});
+    txt(100,760,'philosophy',{a:'start'});
+    P.forEach(function(p,i){
+      var x=xs[i], grp=el('g',{},g); rows.push(grp);
+      el('rect',{x:x-125,y:220,width:250,height:460,fill:'transparent'},grp);
+      el('circle',{cx:x,cy:QY,r:14,fill:hot},grp);
+      var t1=el('text',{x:x,y:QY+46,'text-anchor':'middle',fill:hot,'font-family':MONO,'font-size':FS},grp); t1.textContent=p.q[0];
+      var t2=el('text',{x:x,y:QY+72,'text-anchor':'middle',fill:hot,'font-family':MONO,'font-size':FS},grp); t2.textContent=p.q[1];
+      el('line',{x1:x,y1:QY+92,x2:x,y2:AY-52,stroke:sky,'stroke-width':2,'stroke-dasharray':'6 7'},grp);
+      el('path',{d:'M'+(x-8)+' '+(AY-64)+'L'+x+' '+(AY-52)+'L'+(x+8)+' '+(AY-64),fill:'none',stroke:sky,'stroke-width':2},grp);
+      var a1=el('text',{x:x,y:AY,'text-anchor':'middle',fill:hot,'font-family':MONO,'font-size':FS},grp); a1.textContent=p.a[0];
+      var a2=el('text',{x:x,y:AY+26,'text-anchor':'middle',fill:hot,'font-family':MONO,'font-size':FS},grp); a2.textContent=p.a[1];
+    });
+    var cap=document.getElementById('needsCap'), dflt=cap.textContent;
+    rows.forEach(function(row,i){ row.addEventListener('mouseenter',function(){ rows.forEach(function(r,k){ r.style.transition='opacity .2s'; r.style.opacity=k===i?1:.35; }); cap.textContent=P[i].cap; }); });
+    nf.addEventListener('mouseleave',function(){ rows.forEach(function(r){ r.style.opacity=1; }); cap.textContent=dflt; });
+  })();
+
   /* ---------- where is the mind: persona space ---------- */
   var mc=document.getElementById('mindfig'); if (mc) (function(){ var mx=mc.getContext('2d'), MW=mc.width, MH=mc.height;
   var yaw=0.65, pitch=0.42, SC=150, MCX=MW/2+10, MCY=MH/2+20;

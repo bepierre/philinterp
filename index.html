@@ -1,5 +1,7 @@
 <title>PhilInterp</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <style>
 :root{
   --paper:#FFFFFF; --ink:#111827; --ink-2:#4A5568; --rule:#E3E6EB; --mist:#EEF2F5;
@@ -9,37 +11,44 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:17.5px;line-height:1.55}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:16.5px;line-height:1.55}
 a{color:var(--navy)}
 :focus-visible{outline:2px solid var(--navy);outline-offset:3px}
 svg.mark{color:var(--brand)}
 .gap{display:inline-block;width:.07em}
 .in{max-width:1120px;margin:0 auto;padding:0 72px}
 h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.1;margin:0;text-wrap:balance}
-h2{font-size:40px;letter-spacing:-0.01em}
-h3{font-size:27px}
+h2{font-size:34px;letter-spacing:-0.01em}
+h3{font-size:25px}
 p{margin:0}
-.lead{font-size:19px;color:var(--ink-2);max-width:60ch}
+.lead{font-size:18px;color:var(--ink-2);max-width:60ch}
 .mono{font-family:var(--mono)}
 
 /* nav */
 .nav{position:sticky;top:0;z-index:10;background:var(--paper);border-bottom:1px solid var(--rule)}
 .nav .in{display:flex;align-items:center;gap:14px;padding-top:16px;padding-bottom:16px}
-.brand{display:flex;align-items:center;gap:7px;font-family:var(--sans);font-weight:500;font-size:23px;color:var(--brand);text-decoration:none}
-.brand svg{width:34px;height:34px}
-.links{margin-left:auto;display:flex;align-items:center;gap:30px;font-family:var(--sans);font-size:17px}
+.brand{display:flex;align-items:center;gap:7px;font-family:var(--sans);font-weight:500;font-size:21px;color:var(--brand);text-decoration:none}
+.brand svg{width:31px;height:31px}
+.links{margin-left:auto;display:flex;align-items:center;gap:28px;font-family:var(--sans);font-size:16px}
 .links a{color:var(--ink);text-decoration:none}
 .links a:hover{text-decoration:underline;text-underline-offset:4px}
-.btn{display:inline-block;font-family:var(--sans);font-size:17px;padding:11px 22px;border:1px solid var(--navy);border-radius:2px;color:var(--navy);background:none;cursor:pointer;text-decoration:none}
+.btn{display:inline-block;font-family:var(--sans);font-size:16px;padding:10px 20px;border:1px solid var(--navy);border-radius:2px;color:var(--navy);background:none;cursor:pointer;text-decoration:none}
 .btn.primary{background:var(--navy);color:var(--paper)}
 .btn:hover{background:var(--navy-deep);color:var(--paper);border-color:var(--navy-deep)}
 .links .btn{padding:8px 16px;font-size:17px}
 
+/* announcement line */
+.notice{background:var(--mist);border-bottom:1px solid var(--rule);font-family:var(--sans);font-size:15px}
+.notice .in{padding-top:10px;padding-bottom:10px}
+.notice a{color:var(--ink);text-decoration:none}
+.notice b{font-weight:500;color:var(--navy);margin-right:4px}
+.notice a:hover{text-decoration:underline;text-underline-offset:3px}
+
 /* hero */
-.hero .in{padding-top:96px;padding-bottom:120px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:96px;align-items:start}
-.h1{font-size:68px;line-height:1.05;letter-spacing:-0.01em}
-.h1b{font-family:var(--mono);font-size:54px;line-height:1.1;color:var(--navy);margin-top:6px}
-.hero p{max-width:34em;margin-top:26px}
+.hero .in{padding-top:88px;padding-bottom:112px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:96px;align-items:start}
+.h1{font-size:56px;line-height:1.05;letter-spacing:-0.01em}
+.h1b{font-family:var(--mono);font-size:42px;line-height:1.1;color:var(--navy);margin-top:6px}
+.hero p{max-width:34em;margin-top:24px}
 .hero p + p{margin-top:18px}
 .cta{display:flex;gap:16px;flex-wrap:wrap;margin-top:40px}
 
@@ -49,7 +58,7 @@ figure{margin:0}
 canvas.plate{cursor:crosshair}
 figcaption{font-style:italic;color:var(--ink-2);font-size:15px;line-height:1.5;margin-top:14px;max-width:52ch}
 .work figcaption{font-size:14px;margin-top:10px}
-#tiersCap{min-height:63px}
+#tiersCap,#needsCap{min-height:63px}
 .src{font-family:var(--sans);font-size:14px;color:var(--ink-2);margin-top:8px}
 .src a{color:var(--ink-2)}
 
@@ -83,12 +92,12 @@ section.mist{background:var(--mist);border-top:0}
 .work.nofig{grid-template-columns:minmax(0,1fr)}
 .work.nofig .text{max-width:60em}
 .work .kicker{font-family:var(--sans);font-size:14px;color:var(--ink-2)}
-.work h3{font-size:30px}
+.work h3{font-size:27px}
 .work .auth{font-style:italic;color:var(--ink-2);margin-top:8px}
 .work .auth a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
 .work .auth a:hover{border-bottom-color:var(--ink)}
 .people.page2 .person{scroll-margin-top:96px}
-.work p.body{margin-top:18px;max-width:38em}
+.work p.body{margin-top:16px;max-width:40em}
 .work .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
 .work .actions .btn{font-size:16px;padding:9px 16px}
 .tiers{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
@@ -105,7 +114,33 @@ section.mist{background:var(--mist);border-top:0}
 .rlist .y{font-family:var(--sans);font-size:14px;color:var(--ink-2)}
 .more{font-family:var(--sans);font-size:16px;margin-top:22px}
 .page .in{padding-top:64px;padding-bottom:96px}
-.page h1{font-size:44px;letter-spacing:-0.01em;margin-bottom:48px}
+.page h1{font-size:40px;letter-spacing:-0.01em;margin-bottom:44px}
+
+/* events */
+.event{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:96px;align-items:start}
+.event figure{order:1}
+.event .etext{order:0}
+@media (max-width:900px){ .event{grid-template-columns:1fr;gap:28px} }
+.event .when{font-size:16.5px;color:var(--ink-2)}
+.event h2{margin-top:8px}
+.event .sub{font-size:22px;line-height:1.3;margin-top:8px;max-width:30ch}
+.event .org{margin-top:22px;font-style:italic;color:var(--ink-2);max-width:60ch}
+.event .body{margin-top:18px;max-width:60ch}
+.event .actions{margin-top:28px}
+
+/* events: what comes next */
+.ahead{margin-top:72px;padding-top:40px;border-top:1px solid var(--rule);max-width:60ch}
+.ahead h2{font-size:28px}
+.ahead .body{margin-top:14px}
+
+/* research filters and tags */
+.byline{font-family:var(--sans);font-size:16px;color:var(--ink-2);margin:-28px 0 20px}
+.byline a{margin-left:12px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:-24px 0 44px}
+.filters .chip{font-size:15px;padding:5px 14px}
+.work .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.work .tags .tagc{font-size:13px;color:var(--ink-2);border-color:var(--rule);padding:2px 10px}
+.work[hidden]{display:none}
 
 /* themes */
 .themes{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
@@ -124,8 +159,8 @@ section.mist{background:var(--mist);border-top:0}
 .people.page2 .person{border:0;padding:0;display:grid;grid-template-columns:180px minmax(0,1fr);gap:28px;align-items:start}
 .photo{position:relative;width:180px;aspect-ratio:4/5;background:var(--mist);display:grid;place-items:center;font-family:var(--sans);font-weight:500;font-size:28px;color:var(--navy);overflow:hidden}
 .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.people.page2 .person .b{font-size:17px;max-width:60ch}
-.people.page2 .person .n{font-size:22px}
+.people.page2 .person .b{font-size:16.5px;max-width:60ch}
+.people.page2 .person .n{font-size:21px}
 @media (max-width:900px){ .people.page2{grid-template-columns:1fr} .people.page2 .person{grid-template-columns:140px 1fr} .photo{width:140px} }
 .person .n{font-family:var(--sans);font-weight:500;font-size:20px}
 .person .a{color:var(--ink-2);margin-top:3px;font-size:15.5px;font-family:var(--sans)}
@@ -151,7 +186,7 @@ footer a{color:var(--ink-2);text-decoration:none;margin-left:18px}
   .in{padding:0 24px}
   .links a:not(.btn){display:none}
   .hero .in{grid-template-columns:1fr;padding-top:48px;padding-bottom:64px;gap:40px}
-  .h1{font-size:44px}.h1b{font-size:34px}
+  .h1{font-size:40px}.h1b{font-size:30px}
   .work,.join .in,.statement{grid-template-columns:1fr;gap:28px}
   .statement .big{font-size:28px}
   .themes{grid-template-columns:1fr}.themes > div{border-left:0;padding-left:0;border-top:1px solid var(--rule)}.themes > div:first-child{border-top:0}
@@ -163,7 +198,7 @@ footer a{color:var(--ink-2);text-decoration:none;margin-left:18px}
 
 <nav class="nav"><div class="in">
   <a class="brand" href="index.html" id="brand"><svg class="mark" viewBox="0 0 200 200" aria-label="PhilInterp"></svg><span>Phil<span class="gap"></span>Interp</span></a>
-  <div class="links"><a href="research.html">Research</a><a href="people.html">People</a></div>
+  <div class="links"><a href="research.html">Research</a><a href="people.html">People</a><a href="events.html">Founding event</a></div>
 </div></nav>
 
 <section class="hero" id="top"><div class="in">
@@ -172,7 +207,7 @@ footer a{color:var(--ink-2);text-decoration:none;margin-left:18px}
     <div class="h1b">New instruments.</div>
     <p>What is it to represent the world, grasp a concept, understand, or deceive? Philosophy has long pursued such questions with only indirect access to the mechanisms involved. The emerging field of mechanistic interpretability changes that: in large language models, we can locate representations, trace the circuits that use them, and intervene to see what changes.</p>
     <p>The PhilInterp Network connects researchers exploring the intersection between philosophy and mechanistic interpretability and showcases how they are putting these new instruments to work on longstanding questions in philosophy of mind, language, and ethics.</p>
-    <div class="cta"><a class="btn primary" href="research.html">See the research</a></div>
+    <div class="cta"><a class="btn primary" href="research.html">See the research</a><a class="btn" href="people.html">Who we are</a></div>
   </div>
   <figure>
     <canvas id="feat" class="plate" width="960" height="960" aria-label="Inputs in a model's latent space with a feature direction. Point at an input to read its activation."></canvas>
@@ -415,6 +450,126 @@ footer a{color:var(--ink-2);text-decoration:none;margin-left:18px}
       P.next.textContent = both ? 'next token · basketball' : 'next token · ?';
     }
     draw();
+  })();
+
+
+  /* ---------- research filters ---------- */
+  var filt=document.querySelector('.filters');
+  if (filt) (function(){
+    var chips=filt.querySelectorAll('.chip'), works=document.querySelectorAll('article.work');
+    var active=new Set(), by=null, NAMES={'pierre-beckmann':'Pierre Beckmann','matthieu-queloz':'Matthieu Queloz','iwan-williams':'Iwan Williams','eliot-du-sordet':'Eliot du Sordet'};
+    var byline=document.getElementById('byline');
+    function readHash(){ var m=/by=([a-z-]+)/.exec((location.hash||'')+' '+(location.search||'')); by = m && NAMES[m[1]] ? m[1] : null; if (byline){ byline.hidden=!by; byline.innerHTML = by ? 'Papers by '+NAMES[by]+'<a href="#">Show all</a>' : ''; } }
+    window.addEventListener('hashchange', function(){ readHash(); apply(); });
+    readHash();
+    function apply(){
+      chips.forEach(function(c){ var t=c.dataset.tag; var on = t==='all' ? active.size===0 : active.has(t); c.setAttribute('aria-pressed', on?'true':'false'); });
+      works.forEach(function(a){ var tags=(a.dataset.tags||'').split(' '), authors=(a.dataset.authors||'').split(' '); var show = (active.size===0 || tags.some(function(t){ return active.has(t); })) && (!by || authors.indexOf(by)>=0); a.hidden=!show; });
+    }
+    chips.forEach(function(c){ c.addEventListener('click', function(){ var t=c.dataset.tag; if (t==='all') active.clear(); else if (active.has(t)) active.delete(t); else active.add(t); apply(); }); });
+    apply();
+  })();
+
+  /* ---------- planning a rhyme: the rhyme is chosen first, the line forms toward it ---------- */
+  var rh=document.getElementById('rhymefig');
+  if (rh) (function(){
+    var hot=T['--on-plate'], sky=T['--sky'], plate=T['--plate'], line=T['--plate-line'], FS=19, CW=11.4;
+    var g=el('g',{},rh), dyn=el('g',{},rh);
+    function txt(parent,x,y,str,o){ o=o||{}; var t=el('text',{x:x,y:y,'text-anchor':o.a||'start',fill:hot,'font-family':MONO,'font-size':FS},parent); t.textContent=str; return t; }
+    var L1='He saw a carrot and had to grab it,', X0=90, Y1=270, YP=450, Y2=650;
+    txt(g,X0,Y1,L1);
+    var PLANS={rabbit:['his','hunger','was','like','a','starving','rabbit'], habit:['his','hunger','was','a','powerful','habit']};
+    var chosen='rabbit', timer=null;
+    // the plan: two candidate rhymes, one chosen; the node sits at the line break
+    var PX=X0+L1.length*CW+8; var node=el('circle',{cx:PX,cy:Y1-6,r:8,fill:hot},g);
+    txt(g,450,Y2+110,'an intention-like representation of the rhyme,',{a:'middle'});
+    txt(g,450,Y2+140,'held before the line is written',{a:'middle'});
+    var CH=[{k:'rabbit',x:330},{k:'habit',x:560}], pills={};
+    CH.forEach(function(c){
+      var grp=el('g',{},g); grp.style.cursor='pointer';
+      var wpx=c.k.length*CW+40;
+      var r=el('rect',{x:c.x-wpx/2,y:YP-22,width:wpx,height:44,rx:22,fill:hot,stroke:sky,'stroke-width':2},grp);
+      var t=txt(grp,c.x,YP+7,c.k,{a:'middle'});
+      var link=el('line',{x1:PX,y1:Y1+8,x2:c.x,y2:YP-24,stroke:sky,'stroke-width':2},g); g.insertBefore(link,grp);
+      function pick(){ if (chosen!==c.k){ chosen=c.k; write(true); } }
+      grp.addEventListener('mouseenter',pick); grp.addEventListener('click',pick);
+      pills[c.k]={r:r,t:t,link:link};
+    });
+    function write(animate){
+      CH.forEach(function(c){ var on=c.k===chosen; pills[c.k].r.setAttribute('fill',on?hot:'rgba(255,255,255,.06)'); pills[c.k].t.setAttribute('fill',on?plate:hot); pills[c.k].link.setAttribute('stroke',on?hot:sky); pills[c.k].link.style.opacity=on?1:.3; });
+      while (dyn.firstChild) dyn.removeChild(dyn.firstChild);
+      if (timer) clearTimeout(timer);
+      var words=PLANS[chosen], x=X0, items=[], other=PLANS[chosen==='rabbit'?'habit':'rabbit'], shared=0; while (shared<words.length && words[shared]===other[shared]) shared++;
+      words.forEach(function(wd,i){ var last=i===words.length-1, fixed=i<shared;
+        var t=txt(dyn,x,Y2,wd); if (fixed) t.setAttribute('fill',sky); var ln=el('line',{x1:CH[chosen==='rabbit'?0:1].x,y1:YP+24,x2:x+wd.length*CW/2,y2:Y2-24,stroke:last?hot:sky,'stroke-width':last?2.2:1.2},dyn); ln.style.opacity=last?.9:.35;
+        if (last){ el('rect',{x:x-6,y:Y2-20,width:wd.length*CW+12,height:28,rx:4,fill:'none',stroke:hot,'stroke-width':1.5},dyn); }
+        items.push([t,ln].concat(last?[dyn.lastChild]:[])); x+=(wd.length+1)*CW; });
+      if (!animate || reduce){ return; }
+      items.forEach(function(it,i){ if (i>=shared) it.forEach(function(e){ e.style.opacity=0; }); });
+      var k=shared; (function step(){ if (k>=items.length) return; items[k].forEach(function(e,idx){ e.style.transition='opacity .18s'; e.style.opacity = (idx===1 && k<items.length-1) ? .35 : (idx===1?.9:1); }); k++; timer=setTimeout(step,170); })();
+    }
+    write(false);
+  })();
+
+
+  /* ---------- the world and the model: one structure, twice ---------- */
+  var wc=document.getElementById('worldfig');
+  if (wc) (function(){
+    var wx=wc.getContext('2d'), W=wc.width, H=wc.height;
+    var hot=T['--on-plate'], sky=T['--sky'], plate=T['--plate'], line=T['--plate-line'];
+    // a small constellation, and a rotated, scaled copy of it
+    var base=[[0,0],[1.4,0.3],[2.1,-0.9],[0.6,-1.5],[-0.9,-1.1],[-1.6,0.4],[-0.7,1.4],[0.9,1.6],[2.4,0.8],[-2.2,-0.6],[1.1,-2.3],[-0.2,2.5]];
+    var edges=[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,1],[4,9],[3,10],[7,11],[0,6],[0,3]];
+    function place(cx,cy,sc,rot){ return base.map(function(p){ var x=p[0]*Math.cos(rot)-p[1]*Math.sin(rot), y=p[0]*Math.sin(rot)+p[1]*Math.cos(rot); return {x:cx+x*sc, y:cy+y*sc}; }); }
+    var world=place(250,450,62,0), model=place(650,450,52,0.55), hover=false;
+    wc.addEventListener('mouseenter',function(){ hover=true; draw(); }); wc.addEventListener('mouseleave',function(){ hover=false; draw(); });
+    function draw(){
+      wx.fillStyle=plate; wx.fillRect(0,0,W,H);
+      // a faint divide
+      wx.strokeStyle=line; wx.lineWidth=2; wx.globalAlpha=.5; wx.beginPath(); wx.moveTo(450,120); wx.lineTo(450,780); wx.stroke(); wx.globalAlpha=1;
+      // correspondences
+      if (hover){ wx.strokeStyle=hot; wx.lineWidth=1.6; wx.globalAlpha=.55; wx.setLineDash([6,8]); world.forEach(function(p,i){ wx.beginPath(); wx.moveTo(p.x,p.y); wx.lineTo(model[i].x,model[i].y); wx.stroke(); }); wx.setLineDash([]); wx.globalAlpha=1; }
+      [world,model].forEach(function(pts,k){
+        wx.strokeStyle=sky; wx.lineWidth=2.2; wx.globalAlpha=.7;
+        edges.forEach(function(e){ wx.beginPath(); wx.moveTo(pts[e[0]].x,pts[e[0]].y); wx.lineTo(pts[e[1]].x,pts[e[1]].y); wx.stroke(); });
+        wx.globalAlpha=1; wx.fillStyle=hot; pts.forEach(function(p){ wx.beginPath(); wx.arc(p.x,p.y,7,0,7); wx.fill(); });
+      });
+      wx.fillStyle=hot; wx.font='26px "IBM Plex Mono", monospace'; wx.textAlign='center';
+      wx.fillText('the world',250,810); wx.fillText('the model',650,810);
+    }
+    draw();
+  })();
+
+
+  /* ---------- three open problems, and the philosophy that speaks to each ---------- */
+  var nf=document.getElementById('needsfig');
+  if (nf) (function(){
+    var hot=T['--on-plate'], sky=T['--sky'], line=T['--plate-line'], FS=19;
+    var g=el('g',{},nf);
+    function txt(x,y,str,o){ o=o||{}; var t=el('text',{x:x,y:y,'text-anchor':o.a||'middle',fill:o.c||hot,'font-family':MONO,'font-size':FS},g); t.textContent=str; return t; }
+    var P=[
+      {q:['how to decompose','a network'], a:['philosophy of','science'], cap:'Decomposition: which parts of a network are the right units of explanation. The philosophy of science has an account of mechanistic explanation, and of why there can be several good levels of analysis.'},
+      {q:['what a feature','represents'], a:['philosophy of','representation'], cap:'Features: whether a feature stands for something in the world or in the model, and how to tell. The philosophy of representation separates a vehicle from its content and disciplines how content is ascribed.'},
+      {q:['how to detect','deception'], a:['philosophy of mind','and ethics'], cap:'Deception: finding it in a model’s internals needs settled notions of lying and belief. Philosophy of mind and ethics supply them, and say which deceptive mechanisms call for intervention.'}
+    ];
+    var xs=[180,450,720], QY=300, AY=600, rows=[];
+    el('line',{x1:100,y1:450,x2:800,y2:450,stroke:line,'stroke-width':1.2},g);
+    txt(100,160,'mechanistic interpretability',{a:'start'});
+    txt(100,760,'philosophy',{a:'start'});
+    P.forEach(function(p,i){
+      var x=xs[i], grp=el('g',{},g); rows.push(grp);
+      el('rect',{x:x-125,y:220,width:250,height:460,fill:'transparent'},grp);
+      el('circle',{cx:x,cy:QY,r:14,fill:hot},grp);
+      var t1=el('text',{x:x,y:QY+46,'text-anchor':'middle',fill:hot,'font-family':MONO,'font-size':FS},grp); t1.textContent=p.q[0];
+      var t2=el('text',{x:x,y:QY+72,'text-anchor':'middle',fill:hot,'font-family':MONO,'font-size':FS},grp); t2.textContent=p.q[1];
+      el('line',{x1:x,y1:QY+92,x2:x,y2:AY-52,stroke:sky,'stroke-width':2,'stroke-dasharray':'6 7'},grp);
+      el('path',{d:'M'+(x-8)+' '+(AY-64)+'L'+x+' '+(AY-52)+'L'+(x+8)+' '+(AY-64),fill:'none',stroke:sky,'stroke-width':2},grp);
+      var a1=el('text',{x:x,y:AY,'text-anchor':'middle',fill:hot,'font-family':MONO,'font-size':FS},grp); a1.textContent=p.a[0];
+      var a2=el('text',{x:x,y:AY+26,'text-anchor':'middle',fill:hot,'font-family':MONO,'font-size':FS},grp); a2.textContent=p.a[1];
+    });
+    var cap=document.getElementById('needsCap'), dflt=cap.textContent;
+    rows.forEach(function(row,i){ row.addEventListener('mouseenter',function(){ rows.forEach(function(r,k){ r.style.transition='opacity .2s'; r.style.opacity=k===i?1:.35; }); cap.textContent=P[i].cap; }); });
+    nf.addEventListener('mouseleave',function(){ rows.forEach(function(r){ r.style.opacity=1; }); cap.textContent=dflt; });
   })();
 
   /* ---------- where is the mind: persona space ---------- */

@@ -1,5 +1,7 @@
 <title>Research · PhilInterp</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<link rel="icon" type="image/svg+xml" href="{assets}favicon.svg">
+<link rel="apple-touch-icon" href="{assets}apple-touch-icon.png">
 <style>
 {style}
 </style>
@@ -7,6 +9,18 @@
 {nav}
 <section class="band page" id="founding"><div class="in">
   <h1>Research</h1>
+  <p class="byline" id="byline" hidden></p>
+  <div class="filters" role="group" aria-label="Filter by topic">
+    <button class="chip on" data-tag="all" aria-pressed="true">All</button>
+    <button class="chip" data-tag="introduction" aria-pressed="false">Introduction</button>
+    <button class="chip" data-tag="understanding" aria-pressed="false">Understanding</button>
+    <button class="chip" data-tag="intentions" aria-pressed="false">Intentions</button>
+    <button class="chip" data-tag="mind" aria-pressed="false">Mind</button>
+    <button class="chip" data-tag="world-models" aria-pressed="false">World models</button>
+    <button class="chip" data-tag="representation" aria-pressed="false">Representation</button>
+    <button class="chip" data-tag="belief" aria-pressed="false">Belief</button>
+    
+  </div>
 {works}</div></section>
 
 <script>
