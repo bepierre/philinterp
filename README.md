@@ -10,7 +10,7 @@ Everything lives in `src/`:
 - `src/works.html` — the research entries (title, authors, text, buttons, figure)
 - `src/nav.html`, `src/footer.html` — shared parts
 - `src/style.css` — all styles; the palette and type set are tokens at the top
-- `src/site.js` — the mark and the interactive figures
+- `src/site.js` — the mark and the interactive figures. Figure text uses two sizes only, `FIG_FS` (regular) and `FIG_FS2` (small), set at the top of the figure code
 - `assets/people/` — portraits, one JPEG per person, named like the anchor on the people page
 
 Edit a file in `src/`, commit to `main`, and the site rebuilds and deploys itself within a minute or two (see the Actions tab). Nothing needs to be run locally.

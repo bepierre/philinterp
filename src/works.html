@@ -14,13 +14,13 @@
     <div class="text">
       <h3>Intention-like Representations in Language Models?</h3>
       <div class="auth"><a href="{people}#iwan-williams">Iwan Williams</a>, Philosophical Studies, 2026</div>
-      <p class="body">A growing chorus of AI researchers and philosophers posit internal representations in large language models. But how do these relate to the mental states we routinely ascribe to each other? Belief-like and knowledge-like states have had attention; intentions have had little. The paper surveys five properties associated with intentions in the philosophical literature, directive function, degrees of distality, degrees of abstraction, commitment, and planning, and assesses two candidate classes of representations against them: function vectors, and the output and planning features found by recent interpretability work.</p>
-      <p class="body">The result is mixed. Current evidence suggests representations that are intention-like in many, perhaps surprising, respects, yet differ from human intentions in important ways. Whether to call them intentions requires weighing the costs and pay-offs of extending the concept beyond the paradigm human case.</p>
+      <p class="body">Philosophers and AI researchers increasingly posit internal representations in language models. How do these relate to the mental states we ascribe to each other? Belief-like states have had attention; intentions have had little. The paper takes five properties of intentions from the philosophical literature, directive function, distality, abstraction, commitment and planning, and tests two candidate classes of representations against them: function vectors, and the planning representations found in circuit-tracing work.</p>
+      <p class="body">The result is mixed. These representations are intention-like in many, perhaps surprising, respects, yet differ from human intentions in important ways. Whether to call them intentions means weighing the costs and pay-offs of extending the concept beyond the human case.</p>
       <div class="actions"><a class="btn primary" href="https://link.springer.com/article/10.1007/s11098-026-02605-y">Read the paper</a></div>
     </div>
     <figure>
       <svg id="rhymefig" class="plate" viewBox="0 0 900 900" aria-label="A couplet being written. The rhyme is chosen at the line break, and the words of the second line form toward it. The two candidate rhymes are switches."></svg>
-      <figcaption>Planning ahead. Only the first line is given. Before writing the second, the model holds a representation of the rhyme it is heading for, and the words in between are shaped to reach it. Suppress one candidate and another takes over; the line still opens the same way, then turns. An example from Anthropic's circuit-tracing work.</figcaption>
+      <figcaption id="rhymeCap">Planning ahead. Given only the first line, the model settles on the rhyme before writing the second, then shapes the line to reach it. An example from Anthropic's circuit-tracing work.</figcaption>
     </figure>
   </article>
   <article class="work" id="taxigpt" data-authors="pierre-beckmann matthieu-queloz" data-tags="world-models representation">
@@ -29,11 +29,11 @@
       <div class="auth"><a href="{people}#pierre-beckmann">Pierre Beckmann</a>, <a href="{people}#matthieu-queloz">Matthieu Queloz</a> and André Freitas, 2026</div>
       <p class="body">TaxiGPT is a transformer trained on random walks through Manhattan. Its wrong turns had been read as proof that it holds no coherent map. Looking inside tells a different story: the model represents intersections and the streets between them, tracks its own position over a rolling window of recent moves, and steers by a goal compass, a circular representation of the bearing to its destination. Its failures come from interference between intersection features stored in superposition, not from the absence of a map.</p>
       <p class="body">The interactive explorer lets you play a ride and watch the model's position code and goal compass update turn by turn.</p>
-      <div class="actions"><a class="btn primary" href="https://bepierre.github.io/world-modeling/">Open the explorer</a><a class="btn" href="https://arxiv.org/abs/2609.21748">Read the paper</a></div>
+      <div class="actions"><a class="btn primary" href="https://arxiv.org/abs/2609.21748">Read the paper</a><a class="btn" href="https://bepierre.github.io/world-modeling/">Open the explorer</a></div>
     </div>
     <figure>
       <canvas id="taxi" class="plate" width="900" height="900" aria-label="A taxi on a street grid and a compass showing the decoded bearing to a fixed goal. Move the taxi with the pointer."></canvas>
-      <figcaption>The goal compass: at layer 16 the model keeps the bearing from where it is to its goal as a direction in a two-dimensional plane. Steering the compass steers the taxi.</figcaption>
+      <figcaption id="taxiCap">The goal compass: at layer 16 the model keeps the bearing from where it is to its goal as a direction in a two-dimensional plane. Steering the compass steers the taxi.</figcaption>
     </figure>
   </article>
   <article class="work" id="mind" data-authors="pierre-beckmann" data-tags="mind">
@@ -48,10 +48,24 @@
       <figcaption id="mindCap">Persona space. Each point is the model's internal state under some prompt or conversation; the states gather into regions, and a persona vector runs between them.</figcaption>
     </figure>
   </article>
+  <article class="work" id="preferences" data-authors="pierre-beckmann" data-tags="mind">
+    <div class="text">
+      <h3>Probing Persona-Dependent Preferences in Language Models</h3>
+      <div class="auth">Oscar Gilg, <a href="{people}#pierre-beckmann">Pierre Beckmann</a>, Daniel Paleka and Patrick Butlin, NeurIPS 2026</div>
+      <p class="body">Language models can be said to have preferences: they reliably pick some tasks over others. But a model can also adopt personas with radically different preferences. Does each persona keep its own preference representations, or are some shared? The paper finds a preference vector: a direction that tracks the model's preferences across prompts and situations, and steering along it controls which task the model picks. Found on the helpful assistant, the same vector also predicts and steers the choices of an evil persona whose preferences are the reverse of the assistant's.</p>
+      <p class="body">Recent research has shown that language models frequently enact personas. This paper indicates that doing so can rely on shared circuitry: representations that are common across personas and keep their meaning, while what is encoded along them changes with the persona currently active.</p>
+      <div class="actions"><a class="btn primary" href="https://arxiv.org/abs/2605.13339">Read the paper</a></div>
+    </div>
+    <figure>
+      <canvas id="preffig" class="plate" width="900" height="900" aria-label="Tasks in activation space with one preference direction. Hover the evil persona: the tasks move, the direction stays."></canvas>
+      <figcaption id="prefCap">One preference vector, two personas. Each dot is a task; its height is how much the persona prefers it.</figcaption>
+    </figure>
+  </article>
+
   <article class="work" id="needs-philosophy" data-authors="iwan-williams" data-tags="introduction">
     <div class="text">
       <h3>Mechanistic Interpretability Needs Philosophy</h3>
-      <div class="auth"><a href="{people}#iwan-williams">Iwan Williams</a>, Ninell Oldenburg, Ruchira Dhar, Joshua Hatherley, Constanza Fierro, Nina Rajcic, Sandrine R. Schiller, Filippos Stamatiou and Anders Søgaard, 2026</div>
+      <div class="auth"><a href="{people}#iwan-williams">Iwan Williams</a>, Ninell Oldenburg, Ruchira Dhar, Joshua Hatherley, Constanza Fierro, Nina Rajcic, Sandrine R. Schiller, Filippos Stamatiou and Anders Søgaard, NeurIPS 2026</div>
       <p class="body">Mechanistic interpretability aims to explain how neural networks work by uncovering their underlying mechanisms. As the field grows in influence, the paper argues, it matters to examine not just the models but the assumptions, concepts, and explanatory strategies implicit in the research: mechanistic interpretability needs philosophy as an ongoing partner in clarifying its concepts, refining its methods, and navigating the epistemic and ethical complexities of interpreting AI systems.</p>
       <p class="body">Three open problems make the case. How should a network be decomposed into interpretable parts? What are the features a model discovers and uses, and what do they represent? And how could deception be detected from a model's internals? In each, a philosophical literature already exists that the field can draw on.</p>
       <div class="actions"><a class="btn primary" href="https://arxiv.org/abs/2506.18852">Read the paper</a></div>
@@ -71,6 +85,6 @@
     </div>
     <figure>
       <svg id="recallfig" class="plate" viewBox="0 0 900 900" aria-label="Two input features, Michael and Jordan, combine into a Michael Jordan feature which recalls stored facts. The inputs are switches."></svg>
-      <figcaption>Combination, then recall. Michael and Jordan together activate a Michael Jordan feature; that one feature retrieves the facts stored with it and writes them into the residual stream. The two inputs are switches.</figcaption>
+      <figcaption id="recallCap">Combination, then recall. Michael and Jordan together activate a Michael Jordan feature; that one feature retrieves the facts stored with it and writes them into the residual stream.</figcaption>
     </figure>
   </article>
