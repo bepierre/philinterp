@@ -2,7 +2,7 @@
     <div class="text">
       <h3>Mechanistic Indicators of Understanding in Large Language Models</h3>
       <div class="auth"><a href="{people}#pierre-beckmann">Pierre Beckmann</a> and <a href="{people}#matthieu-queloz">Matthieu Queloz</a>, Philosophical Studies, 2026</div>
-      <p class="body">Language models are often said to imitate patterns without understanding anything. The paper argues that mechanistic findings make this picture hard to hold, once they are read through a theory of what understanding is. It proposes three tiers, each tied to a level of the model's organisation: conceptual understanding, when a model forms features as directions in latent space; state-of-the-world understanding, when it learns contingent connections between features and tracks how the world changes; and principled understanding, when it stops relying on memorised facts and finds a compact circuit that connects them.</p>
+      <p class="body">Large language models are often characterised as pattern-matching systems without genuine understanding. The paper argues that recent mechanistic findings challenge this view once they are integrated with a theory of what understanding is, and proposes three tiers: conceptual understanding, when a model forms features as directions in latent space; state-of-the-world understanding, when it learns contingent connections between features and tracks how the world changes; and principled understanding, when it stops relying on memorised facts and discovers a compact circuit that connects them. The internal organisation this reveals supports understanding-like unification while diverging from human cognition in its parallel use of heterogeneous mechanisms, which moves the debate past a yes or no toward a comparative epistemology of AI and human understanding.</p>
       <div class="actions"><a class="btn primary" href="https://link.springer.com/article/10.1007/s11098-026-02513-1">Read the paper</a></div>
     </div>
     <figure>
@@ -10,12 +10,23 @@
       <figcaption id="tiersCap">Three tiers, three levels of organisation: a feature is a direction; state of the world is features joined by facts; a principle is a circuit in place of a list.</figcaption>
     </figure>
   </article>
+  <article class="work" id="polyphony" data-authors="pierre-beckmann matthieu-queloz" data-tags="understanding">
+    <div class="text">
+      <h3>A Polyphonic Conception of AI Understanding</h3>
+      <div class="auth"><a href="{people}#matthieu-queloz">Matthieu Queloz</a> and <a href="{people}#pierre-beckmann">Pierre Beckmann</a>, preprint, 2026</div>
+      <p class="body">When a doctor, a judge or an engineer must decide whether to trust a model's output, they cannot avoid asking what the model understands: purely mathematical or statistical descriptions struggle to tell trustworthy from untrustworthy outputs without reintroducing the question in all but name. Yet the inherited concept operates within a monophonic paradigm, which localises understanding in a single mechanism underpinning all the capacities it confers. Drawing on a wide range of mechanistic evidence, the paper shows that language models are pervasively polyphonic: outputs emerge from coalitions of parallel mechanisms of uneven reliability, which complement, duplicate or drown out one another, with several coalitions sufficing for a task and none indispensable. This renders monophonic inferences hazardous, and the paper develops a conception of understanding fit for polyphonic AI, centred on sound circuitry that is reliably and correctly recruited and in control of outputs.</p>
+      <div class="actions"><a class="btn primary" href="https://arxiv.org/abs/2609.36079">Read the paper</a></div>
+    </div>
+    <figure>
+      <svg id="polyfig" class="plate" viewBox="0 0 900 900" aria-label="From one input to one output: two pathways joining into one circuit, labelled intra-circuit polyphony; a second circuit, labelled inter-circuit polyphony; and a thin heuristic. Hovering a path silences it; the output reads correct and trustworthy, correct but not trustworthy, or nothing."></svg>
+      <figcaption id="polyCap">Three ways to the output: a first circuit whose two pathways are heuristics on their own, a second circuit, and a cheap heuristic. Hovering a path silences it, and the output says whether what remains can be trusted.</figcaption>
+    </figure>
+  </article>
   <article class="work" id="intentions" data-authors="iwan-williams" data-tags="intentions mind">
     <div class="text">
       <h3>Intention-like Representations in Language Models?</h3>
       <div class="auth"><a href="{people}#iwan-williams">Iwan Williams</a>, Philosophical Studies, 2026</div>
-      <p class="body">Philosophers and AI researchers increasingly posit internal representations in language models. How do these relate to the mental states we ascribe to each other? Belief-like states have had attention; intentions have had little. The paper takes five properties of intentions from the philosophical literature, directive function, distality, abstraction, commitment and planning, and tests two candidate classes of representations against them: function vectors, and the planning representations found in circuit-tracing work.</p>
-      <p class="body">The result is mixed. These representations are intention-like in many, perhaps surprising, respects, yet differ from human intentions in important ways. Whether to call them intentions means weighing the costs and pay-offs of extending the concept beyond the human case.</p>
+      <p class="body">A growing chorus of AI researchers and philosophers posit internal representations in large language models. But how do these relate to the mental states we routinely ascribe to each other? Belief-like and knowledge-like states have had attention; intentions have had little. The paper surveys five properties associated with intentions in the philosophical literature, directive function, degrees of distality, degrees of abstraction, commitment and planning, and assesses two candidate classes of representations against them: function vectors, and the planning representations found in circuit-tracing work. The result is mixed. Current evidence suggests representations that are intention-like in many, perhaps surprising, respects, yet differ from human intentions in important ways; whether to call them intentions requires weighing the costs and pay-offs of extending the concept beyond the paradigm human case.</p>
       <div class="actions"><a class="btn primary" href="https://link.springer.com/article/10.1007/s11098-026-02605-y">Read the paper</a></div>
     </div>
     <figure>
@@ -40,7 +51,7 @@
     <div class="text">
       <h3>Where is the Mind? Persona Vectors and LLM Individuation</h3>
       <div class="auth"><a href="{people}#pierre-beckmann">Pierre Beckmann</a> and Patrick Butlin, forthcoming in Ergo</div>
-      <p class="body">If a language model has a mind, which thing is it: the weights, a conversation, a character the model plays? The individuation problem asks which entities associated with a model should count as minds. The paper approaches it with mechanistic evidence, in particular recent work on persona vectors, persona space, and emergent misalignment, and narrows the field to three candidates: the virtual instance, sustained by attention streams that carry quasi-psychological connections across token-time; the instance-persona; and the model-persona.</p>
+      <p class="body">The individuation problem for large language models asks which entities associated with them, if any, should be identified as minds: the weights, a conversation, a character the model plays? The paper approaches it through mechanistic interpretability, engaging with recent work on persona vectors, persona space and emergent misalignment, and argues that three views are the strongest candidates: the virtual instance view, on the grounds that attention streams sustain quasi-psychological connections across token-time, and two new views, the instance-persona view and the model-persona view, which the persona literature makes promising alternatives.</p>
       <div class="actions"><a class="btn primary" href="https://arxiv.org/abs/2604.17031">Read the paper</a></div>
     </div>
     <figure>
@@ -52,8 +63,7 @@
     <div class="text">
       <h3>Probing Persona-Dependent Preferences in Language Models</h3>
       <div class="auth">Oscar Gilg, <a href="{people}#pierre-beckmann">Pierre Beckmann</a>, Daniel Paleka and Patrick Butlin, NeurIPS 2026</div>
-      <p class="body">Language models can be said to have preferences: they reliably pick some tasks over others. But a model can also adopt personas with radically different preferences. Does each persona keep its own preference representations, or are some shared? The paper finds a preference vector: a direction that tracks the model's preferences across prompts and situations, and steering along it controls which task the model picks. Found on the helpful assistant, the same vector also predicts and steers the choices of an evil persona whose preferences are the reverse of the assistant's.</p>
-      <p class="body">Recent research has shown that language models frequently enact personas. This paper indicates that doing so can rely on shared circuitry: representations that are common across personas and keep their meaning, while what is encoded along them changes with the persona currently active.</p>
+      <p class="body">Language models can be said to have preferences: they reliably pick certain tasks and outputs over others, and preferences shaped by post-training and prompting appear to influence much of their behaviour. But models can also adopt personas with radically different preferences. Does each persona use its own preference representations, or are some shared? The paper identifies a genuine preference vector: it tracks the model's preferences as they shift across a range of prompts and situations, and steering along it causally controls which task the model picks. Some preference information transfers across personas: the vector found on the helpful assistant predicts and steers the choices of qualitatively different personas, including an evil persona whose preferences anti-correlate with the assistant's. Enacting a persona may thus rely on shared circuitry: representations common across personas, along which what is encoded changes with the persona currently active.</p>
       <div class="actions"><a class="btn primary" href="https://arxiv.org/abs/2605.13339">Read the paper</a></div>
     </div>
     <figure>
@@ -66,8 +76,7 @@
     <div class="text">
       <h3>Mechanistic Interpretability Needs Philosophy</h3>
       <div class="auth"><a href="{people}#iwan-williams">Iwan Williams</a>, Ninell Oldenburg, Ruchira Dhar, Joshua Hatherley, Constanza Fierro, Nina Rajcic, Sandrine R. Schiller, Filippos Stamatiou and Anders Søgaard, NeurIPS 2026</div>
-      <p class="body">Mechanistic interpretability aims to explain how neural networks work by uncovering their underlying mechanisms. As the field grows in influence, the paper argues, it matters to examine not just the models but the assumptions, concepts, and explanatory strategies implicit in the research: mechanistic interpretability needs philosophy as an ongoing partner in clarifying its concepts, refining its methods, and navigating the epistemic and ethical complexities of interpreting AI systems.</p>
-      <p class="body">Three open problems make the case. How should a network be decomposed into interpretable parts? What are the features a model discovers and uses, and what do they represent? And how could deception be detected from a model's internals? In each, a philosophical literature already exists that the field can draw on.</p>
+      <p class="body">Mechanistic interpretability aims to explain how neural networks work by uncovering their underlying mechanisms. As the field grows in influence, it is increasingly important to examine not just the models but the assumptions, concepts and explanatory strategies implicit in the research. The paper argues that mechanistic interpretability needs philosophy as an ongoing partner in clarifying its concepts, refining its methods, and navigating the epistemic and ethical complexities of interpreting AI systems, and makes the case through three open problems: how a network should be decomposed into interpretable parts, what the features a model uses represent, and how deception could be detected from a model's internals.</p>
       <div class="actions"><a class="btn primary" href="https://arxiv.org/abs/2506.18852">Read the paper</a></div>
     </div>
     <figure>
@@ -79,8 +88,7 @@
     <div class="text">
       <h3>Deep Learning Models Also Recall Features</h3>
       <div class="auth"><a href="{people}#pierre-beckmann">Pierre Beckmann</a>, 2026</div>
-      <p class="body">Mechanistic interpretability has studied how language models recall facts stored in their weights. The paper argues that factual recall is an instance of something broader, feature recall: a linear projection can be read as retrieving stored information, scaled by how strongly an input feature is active. When Michael and Jordan are both present, an MLP combines them into a Michael Jordan feature; that single feature then recalls what the weights hold about him, plays basketball, Chicago Bulls, and adds it to the residual stream for the next prediction.</p>
-      <p class="body">The paper defines feature recall, shows it applies across architectures, contrasts it with the established paradigm of feature combination, and asks how cases of it could be identified mechanistically.</p>
+      <p class="body">Recent work in mechanistic interpretability has studied how large language models recall facts stored in their weights. The paper argues that factual recall points to something broader, a general kind of operation in deep learning models: feature recall. The core observation is that a linear projection can be read as retrieving stored information scaled by input activations; when Michael and Jordan are both present, an MLP combines them into a Michael Jordan feature, and that one feature recalls what the weights hold about him and adds it to the residual stream. The paper defines feature recall, shows it applies across architectures, contrasts it with the established paradigm of feature combination, and considers how cases of it might be mechanistically identified.</p>
       <div class="actions"><a class="btn primary" href="https://arxiv.org/abs/2608.20970">Read the paper</a></div>
     </div>
     <figure>

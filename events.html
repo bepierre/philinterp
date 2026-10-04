@@ -489,6 +489,78 @@ footer a{color:var(--ink-2);text-decoration:none;margin-left:18px}
     apply();
   })();
 
+  /* ---------- polyphony: two circuits and a cheap heuristic; hovering a path silences it ---------- */
+  var pf=document.getElementById('polyfig');
+  if (pf) (function(){
+    var hot=T['--on-plate'], sky=T['--sky'], plate=T['--plate'], line=T['--plate-line'];
+    var g=el('g',{},pf);
+    function txt(x,y,str,o){ o=o||{}; var t=el('text',{x:x,y:y,'text-anchor':o.a||'middle',fill:o.f||hot,'font-family':MONO,'font-size':o.s||FIG_FS},g); t.textContent=str; return t; }
+    var IX=70, IY=450, OX=800, OY=450, BX=180, BW=540, OUT=[OX-15,OY];
+    // smooth S-curve between two points, horizontal at both ends
+    function S(p,q){ var dx=Math.abs(q[0]-p[0])*0.55; return 'M'+p[0]+' '+p[1]+' C'+(p[0]+dx)+' '+p[1]+' '+(q[0]-dx)+' '+q[1]+' '+q[0]+' '+q[1]; }
+    function L(pts){ return pts.map(function(p,i){ return (i?'L':'M')+p[0]+' '+p[1]; }).join(' '); }
+    function box(y,h,label){ el('rect',{x:BX,y:y,width:BW,height:h,rx:8,fill:'rgba(255,255,255,.035)',stroke:line,'stroke-width':1.2},g); txt(BX+20,y+32,label,{a:'start',s:FIG_FS2,f:sky}); }
+    box(95,290,'first circuit'); box(460,190,'second circuit'); box(700,120,'cheap heuristic');
+    // a voice: feature nodes joined by connections, entering from the input and leaving for the output on curves
+    function voice(o){
+      var grp=el('g',{},g), hit=el('g',{},g), nodes=[]; hit.style.cursor='pointer';
+      o.paths.forEach(function(d){ var pth=el('path',{d:d,fill:'none',stroke:sky,'stroke-width':o.w||1.7},grp); if (o.dash) pth.setAttribute('stroke-dasharray',o.dash); el('path',{d:d,fill:'none',stroke:'transparent','stroke-width':28},hit); });
+      (o.nodes||[]).forEach(function(n){ nodes.push(el('circle',{cx:n[0],cy:n[1],r:6.5,fill:hot,stroke:sky,'stroke-width':1.5},grp)); });
+      var v={on:true,grp:grp,nodes:nodes,alpha:o.alpha,k:o.k};
+      hit.addEventListener('mouseenter',function(){ v.on=!v.on; render(); });
+      return v;
+    }
+    function mark(x,y,l1,l2){ txt(x+12,y-3,l1,{a:'start',s:FIG_FS2,f:sky}); txt(x+12,y+21,l2,{a:'start',s:FIG_FS2,f:sky}); var ax=x-6; el('line',{x1:ax,y1:y-16,x2:ax,y2:y+16,stroke:sky,'stroke-width':1.6},g); el('path',{d:'M'+(ax-5)+' '+(y-10)+'L'+ax+' '+(y-17)+'L'+(ax+5)+' '+(y-10)+'M'+(ax-5)+' '+(y+10)+'L'+ax+' '+(y+17)+'L'+(ax+5)+' '+(y+10),fill:'none',stroke:sky,'stroke-width':1.6},g); }
+    el('circle',{cx:IX,cy:IY,r:6,fill:hot},g);
+    // first circuit: two pathways of features that join. Each alone is a heuristic; together they are sound circuitry
+    var C=[270,450,630], J=[700,254];
+    // first circuit: two pathways, each a small network of its own, joining at one node. Each alone is a heuristic; together they are sound circuitry
+    function pathway(y){ var la=[[C[0],y-18],[C[0],y+18]], lb=[[C[1],y]], P=[];
+      la.forEach(function(p){ P.push(S([IX,IY],p)); P.push(L([p,lb[0]])); }); P.push(L([lb[0],J]));
+      return {nodes:la.concat(lb),paths:P}; }
+    var w1=pathway(182), w2=pathway(326);
+    var A1=voice({k:'a1',alpha:.95,nodes:w1.nodes,paths:w1.paths});
+    var A2=voice({k:'a2',alpha:.95,nodes:w2.nodes,paths:w2.paths});
+    var joinDot=el('circle',{cx:J[0],cy:J[1],r:7.5,fill:hot,stroke:sky,'stroke-width':1.5},g);
+    var join=el('path',{d:S(J,OUT),fill:'none',stroke:sky,'stroke-width':2},g);
+    mark(330,254,'intra-circuit','polyphony');
+    // second circuit: a denser network on the same three columns, doing the task on its own
+    var l1=[[C[0],530],[C[0],575],[C[0],620]], l2=[[C[1],552],[C[1],598]], bj=[C[2],575], bP=[];
+    l1.forEach(function(p){ bP.push(S([IX,IY],p)); l2.forEach(function(q){ bP.push(L([p,q])); }); }); l2.forEach(function(q){ bP.push(L([q,bj])); }); bP.push(S(bj,OUT));
+    var B=voice({k:'b',alpha:.9,w:1.5,nodes:l1.concat(l2).concat([bj]),paths:bP});
+    mark(330,422,'inter-circuit','polyphony');
+    // a cheap heuristic: a surface cue wired straight to the answer, nothing in between
+    var h1=[[C[0],768],[C[2],768]];
+    var H=voice({k:'h',alpha:.6,w:1.4,dash:'6 8',nodes:h1,paths:[S([IX,IY],h1[0]),L(h1),S(h1[1],OUT)]});
+    // output
+    var out=el('circle',{cx:OX,cy:OY,r:15,fill:hot,stroke:sky,'stroke-width':2.5},g);
+    var o1=txt(OX,OY+52,'',{s:FIG_FS2}), o2=txt(OX,OY+80,'',{s:FIG_FS2});
+    // the caption describes what is active now
+    var polyCap=capper('polyCap');
+    function words(){
+      var aOK=A1.on&&A2.on, aAny=A1.on||A2.on;
+      if (aOK&&B.on&&H.on) return null;
+      if (aOK&&B.on) return 'Both circuits are active; the cheap heuristic is silent. The output is correct and sound circuitry stands behind it.';
+      if (aOK) return 'Only the first circuit is active. Its two pathways are heuristics on their own, but together they form sound circuitry: the output can be trusted.';
+      if (B.on) return (aAny ? 'One pathway of the first circuit is silent, so that circuit no longer works. ' : 'The first circuit is silent. ')+'The second circuit is active and carries the output on its own.';
+      if (aAny) return 'A single pathway of the first circuit is active'+(H.on?', together with the cheap heuristic':'')+'. On its own it is a heuristic: the output is correct, but no sound circuitry stands behind it.';
+      if (H.on) return 'Only the cheap heuristic is active. The output is correct, but no sound circuitry stands behind it.';
+      return 'Everything is silent. No output.';
+    }
+    fitCap('polyCap',['Only the first circuit is active. Its two pathways are heuristics on their own, but together they form sound circuitry: the output can be trusted.','A single pathway of the first circuit is active, together with the cheap heuristic. On its own it is a heuristic: the output is correct, but no sound circuitry stands behind it.']);
+    function op(e,v){ e.style.transition='opacity .25s'; e.style.opacity=v; }
+    function render(){
+      [A1,A2,B,H].forEach(function(x){ op(x.grp,x.on?x.alpha:.14); x.nodes.forEach(function(n){ n.setAttribute('fill',x.on?hot:plate); }); });
+      var aOK=A1.on&&A2.on, aAny=A1.on||A2.on; op(join,aOK?.95:(aAny?.4:.14)); op(joinDot,aAny?1:.14); joinDot.setAttribute('fill',aOK?hot:plate);
+      var sound=aOK||B.on, any=aAny||B.on||H.on;
+      out.setAttribute('fill',sound?hot:plate); out.setAttribute('stroke-width',sound?0:2.5); op(out,any?1:.4);
+      o1.textContent = any?'correct,':''; o2.textContent = sound?'trustworthy':(any?'not trustworthy':'');
+      o1.setAttribute('fill',sound?hot:sky); o2.setAttribute('fill',sound?hot:sky);
+      polyCap(words());
+    }
+    render();
+  })();
+
   /* ---------- planning a rhyme: the rhyme is chosen first, the line forms toward it ---------- */
   var rh=document.getElementById('rhymefig');
   if (rh) (function(){
