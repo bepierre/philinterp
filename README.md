@@ -22,6 +22,7 @@ To preview locally: `python3 build.py` writes `index.html`, `research.html`, `pe
 1. Add a portrait to `assets/people/first-last.jpg` (portrait orientation, about 900 px tall).
 2. Copy one `<div class="person" id="first-last">` block in `src/people.html` and fill it in.
 3. In `src/works.html`, wrap the author's name in `<a href="{people}#first-last">…</a>` wherever it appears.
+4. Add `first-last` to `data-authors` on each of their papers in `src/works.html`, and add `'first-last':'First Last'` to the `NAMES` map in `src/site.js`, so the Research link on the people page filters to their papers.
 
 ## Adding a paper
 
