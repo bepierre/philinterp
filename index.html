@@ -553,6 +553,53 @@ footer a{color:var(--ink-2);text-decoration:none;margin-left:18px}
     render();
   })();
 
+  /* ---------- the J-lens: at each layer, a small J-space part of the activation reads out as tokens ---------- */
+  var wf=document.getElementById('wsfig');
+  if (wf) (function(){
+    var hot=T['--on-plate'], sky=T['--sky'], plate=T['--plate'], line=T['--plate-line'];
+    var g=el('g',{},wf);
+    function txt(x,y,str,o){ o=o||{}; var t=el('text',{x:x,y:y,'text-anchor':o.a||'middle',fill:o.f||hot,'font-family':MONO,'font-size':o.s||FIG_FS},g); t.textContent=str; return t; }
+    var SX=170, Y0=800, Y1=120, N=6;
+    // the stream, bottom to top, with the prompt below and the answer above
+    el('line',{x1:SX,y1:Y0+10,x2:SX,y2:Y1-10,stroke:line,'stroke-width':2.4},g);
+    el('path',{d:'M'+(SX-10)+' '+(Y1+6)+'L'+SX+' '+(Y1-12)+'L'+(SX+10)+' '+(Y1+6),fill:'none',stroke:line,'stroke-width':2.4},g);
+    txt(SX-12,Y0+52,'Count to five and introspect deeply.',{a:'start',s:FIG_FS2}); txt(SX,Y1-34,'1');
+    txt(SX-30,Y0-10,'layers',{a:'end',s:FIG_FS2,f:sky});
+    // what the lens reads at each layer: still the prompt, then the answer surfacing, then the output itself
+    // Anthropic's introspection example: the J-space tracks the task, then fills with introspection, then turns into the output
+    var READ=[['counting','halfway','done'],['counting','halfway','done'],['thoughts','consciousness','AI'],['consciousness','thoughts','halfway'],['1','thoughts','counting'],['1','thoughts','counting']];
+    var TOP=[0,0,0,0,0,0], SHARE=[.04,.06,.08,.09,.08,.06];
+    var CAP=['Early layers. The J-space tracks the task: counting, halfway, done. None of these words is in the prompt or the output.','Early layers. The J-space tracks the task: counting, halfway, done. None of these words is in the prompt or the output.','Middle layers. Introspection gathers near the top, thoughts, consciousness, AI, and is held alongside the count.','Middle layers. Introspection gathers near the top, thoughts, consciousness, AI, and is held alongside the count.','Final layers. The readout turns into the next output token: the model counts.','Final layers. The readout turns into the next output token: the model counts.'];
+    var wsCap=capper('wsCap'); fitCap('wsCap',CAP);
+    // the readout panel: the activation bar, split into J-space and the rest, and the ranked tokens
+    var PX=330, PW=440, BX=PX+30, BW=PW-60, ticks=[], cur=3;
+    var panel=el('rect',{x:PX,y:0,width:PW,height:250,rx:6,fill:'rgba(255,255,255,.045)',stroke:line,'stroke-width':1.2},g);
+    var lead=el('line',{x1:SX,y1:0,x2:PX,y2:0,stroke:sky,'stroke-width':2},g);
+    var barRest=el('rect',{x:BX,y:0,width:BW,height:18,fill:sky,opacity:.3},g), barJ=el('rect',{x:BX,y:0,width:30,height:18,fill:hot},g);
+    var labJ=txt(BX,0,'J-space',{a:'start',s:FIG_FS2,f:hot}), labR=txt(BX+BW,0,'the rest',{a:'end',s:FIG_FS2,f:sky});
+    var labRead=txt(BX,0,'J-lens readout',{a:'start',s:FIG_FS2,f:sky});
+    var toks=[0,1,2].map(function(i){ return txt(BX,0,'',{a:'start'}); });
+    for (var i=0;i<N;i++){ (function(i){
+      var y=Y0-(i+0.5)*(Y0-Y1)/N;
+      var tk=el('circle',{cx:SX,cy:y,r:7,fill:plate,stroke:sky,'stroke-width':2},g); ticks.push(tk);
+      var hit=el('rect',{x:SX-60,y:y-(Y0-Y1)/N/2,width:PX-SX+60,height:(Y0-Y1)/N,fill:'transparent'},g); hit.style.cursor='pointer';
+      hit.addEventListener('mouseenter',function(){ cur=i; show(true); });
+    })(i); }
+    wf.addEventListener('mouseleave',function(){ show(false); });
+    function show(hov){
+      var y=Y0-(cur+0.5)*(Y0-Y1)/N, top=Math.max(Y1-20,Math.min(Y0-230,y-125));
+      ticks.forEach(function(t,k){ t.setAttribute('fill',k===cur?hot:plate); t.setAttribute('stroke-width',k===cur?0:2); });
+      lead.setAttribute('y1',y); lead.setAttribute('y2',y);
+      panel.setAttribute('y',top);
+      barRest.setAttribute('y',top+58); barJ.setAttribute('y',top+58); barJ.setAttribute('width',(BW*SHARE[cur]).toFixed(1));
+      labJ.setAttribute('y',top+44); labR.setAttribute('y',top+44);
+      labRead.setAttribute('y',top+118);
+      toks.forEach(function(t,k){ t.setAttribute('y',top+160+k*34); t.textContent=(TOP[cur]<0?'   ':(k+1)+'  ')+READ[cur][k]; t.setAttribute('fill',(TOP[cur]===k)?hot:sky); t.style.opacity=(TOP[cur]<0&&cur===0)?.35:1; });
+      wsCap(hov?CAP[cur]:null);
+    }
+    show(false);
+  })();
+
   /* ---------- planning a rhyme: the rhyme is chosen first, the line forms toward it ---------- */
   var rh=document.getElementById('rhymefig');
   if (rh) (function(){

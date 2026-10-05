@@ -47,10 +47,10 @@
       <figcaption id="taxiCap">The goal compass: at layer 16 the model keeps the bearing from where it is to its goal as a direction in a two-dimensional plane. Steering the compass steers the taxi.</figcaption>
     </figure>
   </article>
-  <article class="work" id="mind" data-authors="pierre-beckmann" data-tags="mind">
+  <article class="work" id="mind" data-authors="pierre-beckmann patrick-butlin" data-tags="ai-welfare mind">
     <div class="text">
       <h3>Where is the Mind? Persona Vectors and LLM Individuation</h3>
-      <div class="auth"><a href="{people}#pierre-beckmann">Pierre Beckmann</a> and Patrick Butlin, forthcoming in Ergo</div>
+      <div class="auth"><a href="{people}#pierre-beckmann">Pierre Beckmann</a> and <a href="{people}#patrick-butlin">Patrick Butlin</a>, forthcoming in Ergo</div>
       <p class="body">The individuation problem for large language models asks which entities associated with them, if any, should be identified as minds: the weights, a conversation, a character the model plays? The paper approaches it through mechanistic interpretability, engaging with recent work on persona vectors, persona space and emergent misalignment, and argues that three views are the strongest candidates: the virtual instance view, on the grounds that attention streams sustain quasi-psychological connections across token-time, and two new views, the instance-persona view and the model-persona view, which the persona literature makes promising alternatives.</p>
       <div class="actions"><a class="btn primary" href="https://arxiv.org/abs/2604.17031">Read the paper</a></div>
     </div>
@@ -59,10 +59,10 @@
       <figcaption id="mindCap">Persona space. Each point is the model's internal state under some prompt or conversation; the states gather into regions, and a persona vector runs between them.</figcaption>
     </figure>
   </article>
-  <article class="work" id="preferences" data-authors="pierre-beckmann" data-tags="mind">
+  <article class="work" id="preferences" data-authors="pierre-beckmann patrick-butlin" data-tags="ai-welfare mind">
     <div class="text">
       <h3>Probing Persona-Dependent Preferences in Language Models</h3>
-      <div class="auth">Oscar Gilg, <a href="{people}#pierre-beckmann">Pierre Beckmann</a>, Daniel Paleka and Patrick Butlin, NeurIPS 2026</div>
+      <div class="auth">Oscar Gilg, <a href="{people}#pierre-beckmann">Pierre Beckmann</a>, Daniel Paleka and <a href="{people}#patrick-butlin">Patrick Butlin</a>, NeurIPS 2026</div>
       <p class="body">Language models can be said to have preferences: they reliably pick certain tasks and outputs over others, and preferences shaped by post-training and prompting appear to influence much of their behaviour. But models can also adopt personas with radically different preferences. Does each persona use its own preference representations, or are some shared? The paper identifies a genuine preference vector: it tracks the model's preferences as they shift across a range of prompts and situations, and steering along it causally controls which task the model picks. Some preference information transfers across personas: the vector found on the helpful assistant predicts and steers the choices of qualitatively different personas, including an evil persona whose preferences anti-correlate with the assistant's. Enacting a persona may thus rely on shared circuitry: representations common across personas, along which what is encoded changes with the persona currently active.</p>
       <div class="actions"><a class="btn primary" href="https://arxiv.org/abs/2605.13339">Read the paper</a></div>
     </div>
@@ -72,6 +72,18 @@
     </figure>
   </article>
 
+  <article class="work" id="workspace" data-authors="patrick-butlin" data-tags="ai-welfare consciousness">
+    <div class="text">
+      <h3>Consciousness and Cognitive Access in LLMs</h3>
+      <div class="auth"><a href="{people}#patrick-butlin">Patrick Butlin</a>, Derek Shiller, Dillon Plunkett and Robert Long, Eleos AI Research, 2026</div>
+      <p class="body">Anthropic's model psychology team use a new technique, the J-lens, to find directions in the residual stream that correspond to tokens the model is poised to produce; together these make up the J-space. The model can report, manipulate and reason with activation aligned with the J-space, unlike the much larger volume of other residual-stream activity, which the team read as conscious access and a functional global workspace. The commentary takes this to be the most significant evidence of consciousness in language models so far uncovered by mechanistic interpretability, and asks whether the results show a global workspace, whether they suggest phenomenal consciousness, and what they imply for moral status: strong evidence for a privileged set of representations, an open question for a workspace proper, and continued uncertainty about phenomenal consciousness, which conscious access does not settle.</p>
+      <div class="actions"><a class="btn primary" href="https://eleosai.org/papers/eleos_gwt_commentary_20260706.pdf">Read the commentary</a></div>
+    </div>
+    <figure>
+      <svg id="wsfig" class="plate" viewBox="0 0 900 900" aria-label="A residual stream running bottom to top through the layers, from the prompt Count to five and introspect deeply to the first output token. Hovering a layer shows the activation split into a small J-space part and the rest, and the J-lens readout: counting words early, then thoughts and consciousness in the middle layers, then the output itself."></svg></svg></svg></svg>
+      <figcaption id="wsCap">The J-lens reads what the model is poised to say at each layer. The J-space is that small part of the activation: a few dozen concepts, under a tenth of the activity. Hover a layer.</figcaption>
+    </figure>
+  </article>
   <article class="work" id="needs-philosophy" data-authors="iwan-williams" data-tags="introduction">
     <div class="text">
       <h3>Mechanistic Interpretability Needs Philosophy</h3>

@@ -213,6 +213,8 @@ footer a{color:var(--ink-2);text-decoration:none;margin-left:18px}
     <button class="chip" data-tag="world-models" aria-pressed="false">World models</button>
     <button class="chip" data-tag="representation" aria-pressed="false">Representation</button>
     <button class="chip" data-tag="belief" aria-pressed="false">Belief</button>
+    <button class="chip" data-tag="ai-welfare" aria-pressed="false">AI welfare</button>
+    <button class="chip" data-tag="consciousness" aria-pressed="false">Consciousness</button>
     
   </div>
   <article class="work" id="understanding" data-authors="pierre-beckmann matthieu-queloz" data-tags="introduction understanding">
@@ -264,10 +266,10 @@ footer a{color:var(--ink-2);text-decoration:none;margin-left:18px}
       <figcaption id="taxiCap">The goal compass: at layer 16 the model keeps the bearing from where it is to its goal as a direction in a two-dimensional plane. Steering the compass steers the taxi.</figcaption>
     </figure>
   </article>
-  <article class="work" id="mind" data-authors="pierre-beckmann" data-tags="mind">
+  <article class="work" id="mind" data-authors="pierre-beckmann patrick-butlin" data-tags="ai-welfare mind">
     <div class="text">
       <h3>Where is the Mind? Persona Vectors and LLM Individuation</h3>
-      <div class="auth"><a href="people.html#pierre-beckmann">Pierre Beckmann</a> and Patrick Butlin, forthcoming in Ergo</div>
+      <div class="auth"><a href="people.html#pierre-beckmann">Pierre Beckmann</a> and <a href="people.html#patrick-butlin">Patrick Butlin</a>, forthcoming in Ergo</div>
       <p class="body">The individuation problem for large language models asks which entities associated with them, if any, should be identified as minds: the weights, a conversation, a character the model plays? The paper approaches it through mechanistic interpretability, engaging with recent work on persona vectors, persona space and emergent misalignment, and argues that three views are the strongest candidates: the virtual instance view, on the grounds that attention streams sustain quasi-psychological connections across token-time, and two new views, the instance-persona view and the model-persona view, which the persona literature makes promising alternatives.</p>
       <div class="actions"><a class="btn primary" href="https://arxiv.org/abs/2604.17031">Read the paper</a></div>
     </div>
@@ -276,10 +278,10 @@ footer a{color:var(--ink-2);text-decoration:none;margin-left:18px}
       <figcaption id="mindCap">Persona space. Each point is the model's internal state under some prompt or conversation; the states gather into regions, and a persona vector runs between them.</figcaption>
     </figure>
   </article>
-  <article class="work" id="preferences" data-authors="pierre-beckmann" data-tags="mind">
+  <article class="work" id="preferences" data-authors="pierre-beckmann patrick-butlin" data-tags="ai-welfare mind">
     <div class="text">
       <h3>Probing Persona-Dependent Preferences in Language Models</h3>
-      <div class="auth">Oscar Gilg, <a href="people.html#pierre-beckmann">Pierre Beckmann</a>, Daniel Paleka and Patrick Butlin, NeurIPS 2026</div>
+      <div class="auth">Oscar Gilg, <a href="people.html#pierre-beckmann">Pierre Beckmann</a>, Daniel Paleka and <a href="people.html#patrick-butlin">Patrick Butlin</a>, NeurIPS 2026</div>
       <p class="body">Language models can be said to have preferences: they reliably pick certain tasks and outputs over others, and preferences shaped by post-training and prompting appear to influence much of their behaviour. But models can also adopt personas with radically different preferences. Does each persona use its own preference representations, or are some shared? The paper identifies a genuine preference vector: it tracks the model's preferences as they shift across a range of prompts and situations, and steering along it causally controls which task the model picks. Some preference information transfers across personas: the vector found on the helpful assistant predicts and steers the choices of qualitatively different personas, including an evil persona whose preferences anti-correlate with the assistant's. Enacting a persona may thus rely on shared circuitry: representations common across personas, along which what is encoded changes with the persona currently active.</p>
       <div class="actions"><a class="btn primary" href="https://arxiv.org/abs/2605.13339">Read the paper</a></div>
     </div>
@@ -289,6 +291,18 @@ footer a{color:var(--ink-2);text-decoration:none;margin-left:18px}
     </figure>
   </article>
 
+  <article class="work" id="workspace" data-authors="patrick-butlin" data-tags="ai-welfare consciousness">
+    <div class="text">
+      <h3>Consciousness and Cognitive Access in LLMs</h3>
+      <div class="auth"><a href="people.html#patrick-butlin">Patrick Butlin</a>, Derek Shiller, Dillon Plunkett and Robert Long, Eleos AI Research, 2026</div>
+      <p class="body">Anthropic's model psychology team use a new technique, the J-lens, to find directions in the residual stream that correspond to tokens the model is poised to produce; together these make up the J-space. The model can report, manipulate and reason with activation aligned with the J-space, unlike the much larger volume of other residual-stream activity, which the team read as conscious access and a functional global workspace. The commentary takes this to be the most significant evidence of consciousness in language models so far uncovered by mechanistic interpretability, and asks whether the results show a global workspace, whether they suggest phenomenal consciousness, and what they imply for moral status: strong evidence for a privileged set of representations, an open question for a workspace proper, and continued uncertainty about phenomenal consciousness, which conscious access does not settle.</p>
+      <div class="actions"><a class="btn primary" href="https://eleosai.org/papers/eleos_gwt_commentary_20260706.pdf">Read the commentary</a></div>
+    </div>
+    <figure>
+      <svg id="wsfig" class="plate" viewBox="0 0 900 900" aria-label="A residual stream running bottom to top through the layers, from the prompt Count to five and introspect deeply to the first output token. Hovering a layer shows the activation split into a small J-space part and the rest, and the J-lens readout: counting words early, then thoughts and consciousness in the middle layers, then the output itself."></svg></svg></svg></svg>
+      <figcaption id="wsCap">The J-lens reads what the model is poised to say at each layer. The J-space is that small part of the activation: a few dozen concepts, under a tenth of the activity. Hover a layer.</figcaption>
+    </figure>
+  </article>
   <article class="work" id="needs-philosophy" data-authors="iwan-williams" data-tags="introduction">
     <div class="text">
       <h3>Mechanistic Interpretability Needs Philosophy</h3>
@@ -651,6 +665,53 @@ footer a{color:var(--ink-2);text-decoration:none;margin-left:18px}
       polyCap(words());
     }
     render();
+  })();
+
+  /* ---------- the J-lens: at each layer, a small J-space part of the activation reads out as tokens ---------- */
+  var wf=document.getElementById('wsfig');
+  if (wf) (function(){
+    var hot=T['--on-plate'], sky=T['--sky'], plate=T['--plate'], line=T['--plate-line'];
+    var g=el('g',{},wf);
+    function txt(x,y,str,o){ o=o||{}; var t=el('text',{x:x,y:y,'text-anchor':o.a||'middle',fill:o.f||hot,'font-family':MONO,'font-size':o.s||FIG_FS},g); t.textContent=str; return t; }
+    var SX=170, Y0=800, Y1=120, N=6;
+    // the stream, bottom to top, with the prompt below and the answer above
+    el('line',{x1:SX,y1:Y0+10,x2:SX,y2:Y1-10,stroke:line,'stroke-width':2.4},g);
+    el('path',{d:'M'+(SX-10)+' '+(Y1+6)+'L'+SX+' '+(Y1-12)+'L'+(SX+10)+' '+(Y1+6),fill:'none',stroke:line,'stroke-width':2.4},g);
+    txt(SX-12,Y0+52,'Count to five and introspect deeply.',{a:'start',s:FIG_FS2}); txt(SX,Y1-34,'1');
+    txt(SX-30,Y0-10,'layers',{a:'end',s:FIG_FS2,f:sky});
+    // what the lens reads at each layer: still the prompt, then the answer surfacing, then the output itself
+    // Anthropic's introspection example: the J-space tracks the task, then fills with introspection, then turns into the output
+    var READ=[['counting','halfway','done'],['counting','halfway','done'],['thoughts','consciousness','AI'],['consciousness','thoughts','halfway'],['1','thoughts','counting'],['1','thoughts','counting']];
+    var TOP=[0,0,0,0,0,0], SHARE=[.04,.06,.08,.09,.08,.06];
+    var CAP=['Early layers. The J-space tracks the task: counting, halfway, done. None of these words is in the prompt or the output.','Early layers. The J-space tracks the task: counting, halfway, done. None of these words is in the prompt or the output.','Middle layers. Introspection gathers near the top, thoughts, consciousness, AI, and is held alongside the count.','Middle layers. Introspection gathers near the top, thoughts, consciousness, AI, and is held alongside the count.','Final layers. The readout turns into the next output token: the model counts.','Final layers. The readout turns into the next output token: the model counts.'];
+    var wsCap=capper('wsCap'); fitCap('wsCap',CAP);
+    // the readout panel: the activation bar, split into J-space and the rest, and the ranked tokens
+    var PX=330, PW=440, BX=PX+30, BW=PW-60, ticks=[], cur=3;
+    var panel=el('rect',{x:PX,y:0,width:PW,height:250,rx:6,fill:'rgba(255,255,255,.045)',stroke:line,'stroke-width':1.2},g);
+    var lead=el('line',{x1:SX,y1:0,x2:PX,y2:0,stroke:sky,'stroke-width':2},g);
+    var barRest=el('rect',{x:BX,y:0,width:BW,height:18,fill:sky,opacity:.3},g), barJ=el('rect',{x:BX,y:0,width:30,height:18,fill:hot},g);
+    var labJ=txt(BX,0,'J-space',{a:'start',s:FIG_FS2,f:hot}), labR=txt(BX+BW,0,'the rest',{a:'end',s:FIG_FS2,f:sky});
+    var labRead=txt(BX,0,'J-lens readout',{a:'start',s:FIG_FS2,f:sky});
+    var toks=[0,1,2].map(function(i){ return txt(BX,0,'',{a:'start'}); });
+    for (var i=0;i<N;i++){ (function(i){
+      var y=Y0-(i+0.5)*(Y0-Y1)/N;
+      var tk=el('circle',{cx:SX,cy:y,r:7,fill:plate,stroke:sky,'stroke-width':2},g); ticks.push(tk);
+      var hit=el('rect',{x:SX-60,y:y-(Y0-Y1)/N/2,width:PX-SX+60,height:(Y0-Y1)/N,fill:'transparent'},g); hit.style.cursor='pointer';
+      hit.addEventListener('mouseenter',function(){ cur=i; show(true); });
+    })(i); }
+    wf.addEventListener('mouseleave',function(){ show(false); });
+    function show(hov){
+      var y=Y0-(cur+0.5)*(Y0-Y1)/N, top=Math.max(Y1-20,Math.min(Y0-230,y-125));
+      ticks.forEach(function(t,k){ t.setAttribute('fill',k===cur?hot:plate); t.setAttribute('stroke-width',k===cur?0:2); });
+      lead.setAttribute('y1',y); lead.setAttribute('y2',y);
+      panel.setAttribute('y',top);
+      barRest.setAttribute('y',top+58); barJ.setAttribute('y',top+58); barJ.setAttribute('width',(BW*SHARE[cur]).toFixed(1));
+      labJ.setAttribute('y',top+44); labR.setAttribute('y',top+44);
+      labRead.setAttribute('y',top+118);
+      toks.forEach(function(t,k){ t.setAttribute('y',top+160+k*34); t.textContent=(TOP[cur]<0?'   ':(k+1)+'  ')+READ[cur][k]; t.setAttribute('fill',(TOP[cur]===k)?hot:sky); t.style.opacity=(TOP[cur]<0&&cur===0)?.35:1; });
+      wsCap(hov?CAP[cur]:null);
+    }
+    show(false);
   })();
 
   /* ---------- planning a rhyme: the rhyme is chosen first, the line forms toward it ---------- */
