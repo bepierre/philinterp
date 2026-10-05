@@ -250,7 +250,7 @@
   var filt=document.querySelector('.filters');
   if (filt) (function(){
     var chips=filt.querySelectorAll('.chip'), works=document.querySelectorAll('article.work');
-    var active=new Set(), by=null, NAMES={'pierre-beckmann':'Pierre Beckmann','matthieu-queloz':'Matthieu Queloz','iwan-williams':'Iwan Williams','eliot-du-sordet':'Eliot du Sordet'};
+    var active=new Set(), by=null, NAMES={'pierre-beckmann':'Pierre Beckmann','matthieu-queloz':'Matthieu Queloz','iwan-williams':'Iwan Williams','eliot-du-sordet':'Eliot du Sordet','patrick-butlin':'Patrick Butlin'};
     var byline=document.getElementById('byline');
     function readHash(){ var m=/by=([a-z-]+)/.exec((location.hash||'')+' '+(location.search||'')); by = m && NAMES[m[1]] ? m[1] : null; if (byline){ byline.hidden=!by; byline.innerHTML = by ? 'Papers by '+NAMES[by]+'<a href="#">Show all</a>' : ''; } }
     window.addEventListener('hashchange', function(){ readHash(); apply(); });
