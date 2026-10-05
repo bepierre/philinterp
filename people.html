@@ -133,8 +133,6 @@ section.mist{background:var(--mist);border-top:0}
 .ahead .body{margin-top:14px}
 
 /* research filters and tags */
-.byline{font-family:var(--sans);font-size:16px;color:var(--ink-2);margin:-28px 0 20px}
-.byline a{margin-left:12px}
 .filters{display:flex;gap:8px;flex-wrap:wrap;margin:-24px 0 44px}
 .filters .chip{font-size:15px;padding:5px 14px}
 .work .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
@@ -506,15 +504,14 @@ footer a{color:var(--ink-2);text-decoration:none;margin-left:18px}
   if (filt) (function(){
     var chips=filt.querySelectorAll('.chip'), works=document.querySelectorAll('article.work');
     var active=new Set(), by=null, NAMES={'pierre-beckmann':'Pierre Beckmann','matthieu-queloz':'Matthieu Queloz','iwan-williams':'Iwan Williams','eliot-du-sordet':'Eliot du Sordet','patrick-butlin':'Patrick Butlin'};
-    var byline=document.getElementById('byline');
-    function readHash(){ var m=/by=([a-z-]+)/.exec((location.hash||'')+' '+(location.search||'')); by = m && NAMES[m[1]] ? m[1] : null; if (byline){ byline.hidden=!by; byline.innerHTML = by ? 'Papers by '+NAMES[by]+'<a href="#">Show all</a>' : ''; } }
+    function readHash(){ var m=/by=([a-z-]+)/.exec((location.hash||'')+' '+(location.search||'')); by = m && NAMES[m[1]] ? m[1] : null; }
     window.addEventListener('hashchange', function(){ readHash(); apply(); });
     readHash();
     function apply(){
-      chips.forEach(function(c){ var t=c.dataset.tag; var on = t==='all' ? active.size===0 : active.has(t); c.setAttribute('aria-pressed', on?'true':'false'); });
+      chips.forEach(function(c){ var t=c.dataset.tag; var on = t==='all' ? (active.size===0 && !by) : active.has(t); c.setAttribute('aria-pressed', on?'true':'false'); });
       works.forEach(function(a){ var tags=(a.dataset.tags||'').split(' '), authors=(a.dataset.authors||'').split(' '); var show = (active.size===0 || tags.some(function(t){ return active.has(t); })) && (!by || authors.indexOf(by)>=0); a.hidden=!show; });
     }
-    chips.forEach(function(c){ c.addEventListener('click', function(){ var t=c.dataset.tag; if (t==='all') active.clear(); else if (active.has(t)) active.delete(t); else active.add(t); apply(); }); });
+    chips.forEach(function(c){ c.addEventListener('click', function(){ var t=c.dataset.tag; if (t==='all'){ active.clear(); by=null; if (location.hash) history.replaceState(null,'',location.pathname+location.search); } else if (active.has(t)) active.delete(t); else active.add(t); apply(); }); });
     apply();
   })();
 
