@@ -18,6 +18,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: '3.x' }
       - run: python3 build.py --out _site && cp -r assets _site/
+      - run: echo 'philinterp.com' > _site/CNAME
       - uses: actions/upload-pages-artifact@v3
         with: { path: _site }
   deploy:
