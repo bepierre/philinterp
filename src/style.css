@@ -116,7 +116,18 @@ section.mist{background:var(--mist);border-top:0}
 .event{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:96px;align-items:start}
 .event figure{order:1}
 .event .etext{order:0}
-@media (max-width:900px){ .event{grid-template-columns:minmax(0,1fr);gap:28px} }
+@media (max-width:900px){
+  /* on a phone: date and title, then the figure, then the text */
+  .event{grid-template-columns:minmax(0,1fr);gap:0}
+  .event .etext{display:contents}
+  .event .when{order:1}
+  .event h2{order:2}
+  .event .sub{order:3}
+  .event figure{order:4;margin-top:24px}
+  .event .org{order:5;margin-top:22px}
+  .event .body{order:6}
+  .event .actions{order:8;margin-top:24px}
+}
 .event .when{font-size:var(--fs-body);color:var(--ink-2)}
 .event h2{margin-top:8px}
 .event .sub{font-size:var(--fs-md);line-height:1.3;margin-top:8px;max-width:30ch}
@@ -184,11 +195,25 @@ footer a{color:var(--ink-2);text-decoration:none;margin-left:18px}
   .brand svg{width:26px;height:26px}
   .links{gap:14px;font-size:var(--fs-body)}
   .links .lg{display:none}.links .sm{display:inline}
-  .hero .in{grid-template-columns:minmax(0,1fr);padding-top:48px;padding-bottom:64px;gap:40px}
+  /* on a phone: headline, then the figure, then the text */
+  .hero .in{grid-template-columns:minmax(0,1fr);padding-top:40px;padding-bottom:64px;gap:0}
+  .hero .in > div{display:contents}
+  .hero .h1{order:1}
+  .hero .h1b{order:2}
+  .hero figure{order:3;margin-top:28px}
+  .hero p{order:4}
+  .hero .cta{order:6;margin-top:28px}
   .h1b{word-spacing:-0.1em}
-  .work,.join .in,.statement{grid-template-columns:minmax(0,1fr);gap:20px}
-  .work figure{order:-1}
-  .work .text{order:1}
+  .join .in,.statement{grid-template-columns:minmax(0,1fr);gap:20px}
+  /* on a phone: title, then the figure, then the text */
+  .work{grid-template-columns:minmax(0,1fr);gap:0;padding:40px 0}
+  .work .text{display:contents}
+  .work h3{order:1}
+  .work .auth{order:2}
+  .work figure{order:3;margin-top:22px}
+  .work p.body{order:4;margin-top:20px}
+  .work p.body + p.body{order:5}
+  .work .actions{order:6;margin-top:22px}
   .themes{grid-template-columns:1fr}.themes > div{border-left:0;padding-left:0;border-top:1px solid var(--rule)}.themes > div:first-child{border-top:0}
   .people{grid-template-columns:1fr}
   section.band .in{padding-top:56px;padding-bottom:64px}
